@@ -7,7 +7,6 @@
 
 struct canvas
 {
-    char user_input;
     char array[20][71];
 };
 
@@ -53,7 +52,7 @@ void save_file(struct canvas *save_setting, char *named_file, int size)
     user_text_file = fopen(named_file, "w");
 
     save_setting -> array[19][70] = '\0';
-    fprintf(user_text_file, save_setting -> array);
+    fprintf(user_text_file, save_setting->array);
 
     fclose(user_text_file);
 }
@@ -66,7 +65,7 @@ void naming_file(struct canvas *file_setting)
 
     user_named_file = calloc(81, sizeof(char));
 
-    printf("ÆÄÀÏ ÀÌ¸§À» Á¤ÇØÁÖ¼¼¿ä. ÀÌ¸§ÀÇ ÃÖ´ë ±æÀÌ´Â 80ÀÔ´Ï´Ù.\n");
+    printf("íŒŒì¼ ì´ë¦„ì„ ì •í•´ì£¼ì„¸ìš”. ì´ë¦„ì˜ ìµœëŒ€ ê¸¸ì´ëŠ” 80ì…ë‹ˆë‹¤.\n");
     scanf( " %s", user_named_file);
 
     while(user_named_file[len] != '\0')
@@ -79,7 +78,7 @@ void naming_file(struct canvas *file_setting)
     {
         while(true)
         {
-            printf("µ¿ÀÏÇÑ ÆÄÀÏ¸íÀÌ Á¸ÀçÇÕ´Ï´Ù. µ¤¾î ¾²½Ã°Ú½À´Ï±î?(y, n)\n");
+            printf("ë™ì¼í•œ íŒŒì¼ëª…ì´ ì¡´ì¬í•©ë‹ˆë‹¤. ë®ì–´ ì“°ì‹œê² ìŠµë‹ˆê¹Œ?(y, n)\n");
             scanf(" %c", &override);
 
             if(override == 'y' || override == 'Y')
@@ -90,7 +89,7 @@ void naming_file(struct canvas *file_setting)
 
             else if(override == 'n' || override == 'N')
             {
-                printf("´Ù¸¥ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+                printf("ë‹¤ë¥¸ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
                 naming_file(file_setting);
                 break;
             }
@@ -118,7 +117,7 @@ void load_file(struct canvas *array)
     char *find_file = calloc(81, sizeof(char));
     char contents[71];
 
-    printf("Ã£À¸·Á´Â ÆÄÀÏÀÇ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+    printf("ì°¾ìœ¼ë ¤ëŠ” íŒŒì¼ì˜ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
     scanf("%s", find_file);
 
     if (_access(find_file, 0) == 0)
@@ -138,85 +137,175 @@ void load_file(struct canvas *array)
         }
         else
         {
-            printf("ÆÄÀÏ %sÀ»(¸¦) ¿­ ¼ö ¾ø½À´Ï´Ù.\n", find_file);
+            printf("íŒŒì¼ %sì„(ë¥¼) ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n", find_file);
         }
     }
     else
     {
-        printf("%s ¶ó´Â ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.\n", find_file);
+        printf("%s ë¼ëŠ” íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n", find_file);
     }
+}
+
+void indexArrange(int r[2], int l[2])
+{
+    int emp = 0;
+
+    if(r[0] > r[1])
+    {
+        emp = r[0];
+        r[0] = r[1];
+        r[1] = emp;
+    }
+    
+    if(l[0] > l[1])
+    {
+        emp = l[0];
+        l[0] = l[1];
+        l[1] = emp;
+    }
+}
+
+void drawingLine(struct canvas *Canvas)
+{
+    int row[2], col[2], len = 0;
+
+    printf("ì–´ë””ì„œ ì‹œì‘ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n ì…ë ¥ ì˜ˆì‹œ : ê°€ë¡œ ì„¸ë¡œ\n");
+    scanf(" %d %d", &row[0], &col[0]);
+
+    printf("ì–´ë””ê¹Œì§€ ì‡ê² ìŠµë‹ˆê¹Œ?\n ì…ë ¥ ì˜ˆì‹œ : ê°€ë¡œ ì„¸ë¡œ\n");
+    scanf(" %d %d", &row[1], &col[1]);
+
+    indexArrange(row, col);
+        
+    int length[2] = {row[1] - row[0], col[1] - col[0]};
+
+    for(int i = row[0]; i <= row[1]; i++)
+    {
+        for(int j = 0; j <= length[1] / length[0]; j++)
+        {
+            
+        }
+    }
+}
+
+void drawingToCanvas(struct canvas *draw)
+{
+    int row, col;
+    char user_input, drawing;
+
+    printf("ì–´ë–¤ ë¬¸ìë¥¼ í‘œì‹œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n");
+    scanf(" %c", &user_input);
+
+    printf("ì„ ì„ ê·¸ë¦¬ì‹œê² ìŠµë‹ˆê¹Œ? (y/n)\n");
+    scanf(" %c", &drawing);
+
+    if(drawing == 'y' || drawing == 'Y')
+        drawingLine(draw);
+
+    else if(drawing == 'n' || drawing == 'N')
+    {
+        printf("ì–´ë””ì— ë¬¸ìë¥¼ í‘œì‹œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\nì…ë ¥ ì˜ˆì‹œ : ê°€ë¡œ ì„¸ë¡œ\n");
+        scanf(" %d %d", &row, &col);
+
+        draw -> array[col - 1][row - 1] = user_input;
+    }
+}
+
+void deleteToCanvas(struct canvas *erase)
+{
+    int row, col;
+    char remove_all;
+
+    printf("ì „ë¶€ ì§€ìš°ì‹œê² ìŠµë‹ˆê¹Œ? (y/n)\n");
+    scanf(" %c", &remove_all);
+
+    if(remove_all == 'y' || remove_all == 'Y')
+        initialize(erase);
+
+    else if(remove_all == 'n' || remove_all == 'N')
+    {
+        printf("ì–´ë””ì— ë¬¸ìë¥¼ ì§€ìš°ì‹œê² ìŠµë‹ˆê¹Œ?\nì…ë ¥ ì˜ˆì‹œ : ê°€ë¡œ ì„¸ë¡œ\n");
+        scanf(" %d %d", &row, &col);
+
+        erase -> array[col - 1][row - 1] = EMPTY;
+    }
+
+    else
+    {
+        printf("ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
+        deleteToCanvas(erase);
+    }
+}
+
+int modeSelect(struct canvas *Canvas)
+{
+    char mode_select;
+
+    while(true)
+    {
+        printf("\n             ì‚¬ìš©í•  ê¸°ëŠ¥ì„ ì„ íƒí•´ì£¼ì„¸ìš”.\n");
+        printf("1.ê·¸ë¦¬ê¸° 2.ì§€ìš°ê¸° 3.ì €ì¥í•˜ê¸° 4.ë¶ˆëŸ¬ì˜¤ê¸° 5.ìƒˆ í™”ë©´ 6.ì¢…ë£Œ\n");
+
+        scanf(" %c", &mode_select);
+
+        if (mode_select == '1')
+        {
+            drawingToCanvas(Canvas);
+            break;
+        }
+
+
+        else if (mode_select == '2')
+        {
+            deleteToCanvas(Canvas);
+            break;
+        }
+
+
+        else if (mode_select == '3')
+        {
+            naming_file(Canvas);
+            break;
+        }
+
+        else if (mode_select == '4')
+        {
+            load_file(Canvas);
+            break;
+        }
+
+        else if (mode_select == '5')
+        {
+            initialize(Canvas);
+            break;
+        }
+
+        else if (mode_select == '6')
+            break;
+
+        else
+        {
+            printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
+            break;
+        }
+    }
+
+    system("cls");
+
+    return atoi(&mode_select);
 }
 
 int main() {
     struct canvas setting;
-
-    char mode_select;
-    int x, y;
+    int end;
 
     initialize(&setting);
 
-    while (true) {
+    while(true){
         printing(&setting);
+        end = modeSelect(&setting);
 
-        while(true)
-        {
-            printf("\n             »ç¿ëÇÒ ±â´ÉÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.\n");
-            printf("1.±×¸®±â 2.Áö¿ì±â 3.ÀúÀåÇÏ±â 4.ºÒ·¯¿À±â 5.»õ È­¸é 6.Á¾·á\n");
-
-            scanf(" %c", &mode_select);
-
-            if (mode_select == '1')
-            {
-                printf("¾î¶² ¹®ÀÚ¸¦ Ç¥½ÃÇÏ½Ã°Ú½À´Ï±î?\n");
-                scanf(" %c", &setting.user_input);
-
-                printf("¾îµğ¿¡ ¹®ÀÚ¸¦ Ç¥½ÃÇÏ½Ã°Ú½À´Ï±î?\nÀÔ·Â ¿¹½Ã : °¡·Î ¼¼·Î\n");
-                scanf(" %d %d", &x, &y);
-
-                setting.array[y - 1][x - 1] = setting.user_input;
-
-                break;
-            }
-
-
-            else if (mode_select == '2')
-            {
-                printf("¾îµğ¿¡ ¹®ÀÚ¸¦ Áö¿ì½Ã°Ú½À´Ï±î?\nÀÔ·Â ¿¹½Ã : °¡·Î ¼¼·Î\n");
-                scanf(" %d %d", &x, &y);
-
-                setting.array[y - 1][x - 1] = EMPTY;
-                break;
-            }
-
-
-            else if (mode_select == '3')
-            {
-                naming_file(&setting);
-                break;
-            }
-
-            else if (mode_select == '4')
-            {
-                load_file(&setting);
-                break;
-            }
-
-            else if (mode_select == '5')
-            {
-                initialize(&setting);
-                break;
-            }
-
-            else if (mode_select == '6')
-                exit(2);
-
-            else
-            {
-                printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
-                break;
-            }
-        }
-
-        system("cls");
+        if(end == 6)
+            exit(2);
     }
 }
